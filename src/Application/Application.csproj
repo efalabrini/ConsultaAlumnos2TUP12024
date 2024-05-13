@@ -10,4 +10,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RootNamespace>ConsultaAlumnos.Application</RootNamespace>
+    <AssemblyName>ConsultaAlumnos.Application</AssemblyName>
+  </PropertyGroup>
+
+
 </Project>

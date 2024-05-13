@@ -1,4 +1,4 @@
-namespace ConsultaAlummos2TUP12024.Domain.Entities;
+namespace ConsultaAlumnos.Domain.Entities;
 
 public class Subject
 {

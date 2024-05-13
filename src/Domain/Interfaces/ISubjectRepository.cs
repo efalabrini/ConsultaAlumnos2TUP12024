@@ -1,14 +1,17 @@
-using ConsultaAlummos2TUP12024.Domain.Entities;
+using ConsultaAlumnos.Domain.Entities;
 
-namespace ConsultaAlummos2TUP12024.Domain.Interfaces;
+namespace ConsultaAlumnos.Domain.Interfaces;
 
 public interface ISubjectRepository
 {
     Subject GetById(int id);
 
+    List<Subject> GetAll();
     Subject Add(Subject subject);
 
-    void Update (Subject subject);
+    void Update(Subject subject);
 
-    void Delete (Subject subject);
+    void Delete(Subject subject);
+
+    
 }

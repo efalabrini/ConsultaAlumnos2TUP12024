@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <RootNamespace>ConsultaAlumnos.Domain</RootNamespace>
+    <AssemblyName>ConsultaAlumnos.Domain</AssemblyName>
+  </PropertyGroup>
+
 </Project>

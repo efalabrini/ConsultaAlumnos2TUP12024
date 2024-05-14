@@ -19,7 +19,7 @@ public class SubjectController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(SubjectCreateRequest subjectCreateRequest)
+    public IActionResult Create([FromBody] SubjectCreateRequest subjectCreateRequest)
     {
         var newObj = _subjectService.Create(subjectCreateRequest);
 
@@ -27,7 +27,7 @@ public class SubjectController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, SubjectUpdateRequest subjectUpdateRequest)
+    public IActionResult Update([FromRoute] int id, [FromBody] SubjectUpdateRequest subjectUpdateRequest)
     { 
 
         try
@@ -43,7 +43,7 @@ public class SubjectController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public IActionResult Delete([FromRoute] int id)
     {
         try
         {
@@ -64,7 +64,7 @@ public class SubjectController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Subject> Get(int id)
+    public ActionResult<Subject> Get([FromRoute] int id)
     {
         try
         {

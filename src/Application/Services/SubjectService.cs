@@ -8,7 +8,7 @@ namespace ConsultaAlumnos.Application.Services;
 
 public class SubjectService : ISubjectService
 {
-    public readonly ISubjectRepository _subjectRepository;
+    private readonly ISubjectRepository _subjectRepository;
     public SubjectService(ISubjectRepository subjectRepository)
     {
         _subjectRepository = subjectRepository;
@@ -30,7 +30,7 @@ public class SubjectService : ISubjectService
         return _subjectRepository.Add(obj);
     }
 
-    public void Update(int id,SubjectUpdateRequest subjectUpdateRequest)
+    public void Update(int id, SubjectUpdateRequest subjectUpdateRequest)
     {
         var obj = _subjectRepository.GetById(id);
 

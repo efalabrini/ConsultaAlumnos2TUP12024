@@ -17,7 +17,8 @@ builder.Services.AddScoped<ISubjectService, SubjectService>();
 #endregion
 
 #region Repositories
-builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+//builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepositoryEF>();
 #endregion
 
 var app = builder.Build();

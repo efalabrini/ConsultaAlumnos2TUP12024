@@ -12,8 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region Services
 builder.Services.AddScoped<ISubjectService, SubjectService>();
-builder.Services.AddScoped<ISubjectRepository,SubjectRepository>();
+#endregion
+
+#region Repositories
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+#endregion
 
 var app = builder.Build();
 

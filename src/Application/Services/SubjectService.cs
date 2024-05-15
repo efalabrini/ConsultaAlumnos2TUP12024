@@ -24,10 +24,19 @@ public class SubjectService : ISubjectService
         return _subjectRepository.GetById(id);
     }
 
-    public Subject Create(SubjectCreateRequest subjectCreateRequest)
+    public string Create(SubjectCreateRequest subjectCreateRequest)
     {
         var obj = new Subject(subjectCreateRequest.Name);
-        return _subjectRepository.Add(obj);
+        if (_subjectRepository.AlreadyCreated(obj.Name))
+        {
+            return "esa materia ya existe";
+        }else
+        {
+            _subjectRepository.Add(obj);
+            return "agregado correctamente";
+        }
+        
+        
     }
 
     public void Update(int id, SubjectUpdateRequest subjectUpdateRequest)
@@ -45,5 +54,6 @@ public class SubjectService : ISubjectService
 
         _subjectRepository.Delete(objToDelete);
     }
+
 
 }

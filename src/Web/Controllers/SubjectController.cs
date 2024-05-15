@@ -23,7 +23,7 @@ public class SubjectController : ControllerBase
     {
         var newObj = _subjectService.Create(subjectCreateRequest);
 
-        return CreatedAtAction(nameof(Get), new { id = newObj.Id }, newObj);
+        return CreatedAtAction(nameof(Get), new { id = newObj }, newObj);
     }
 
     [HttpPut("{id}")]

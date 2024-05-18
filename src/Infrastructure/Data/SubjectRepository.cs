@@ -40,4 +40,15 @@ public class SubjectRepository : ISubjectRepository
         obj.Name = subject.Name;
 
     }
+
+    public bool RepeatedMatter(string name)
+    {
+        foreach (var subject in subjects) {
+        if (name == subject.Name)
+            {
+                return true;    
+            };    
+        }
+        return false;   
+    }
 }

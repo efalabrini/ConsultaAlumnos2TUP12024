@@ -13,5 +13,7 @@ public interface ISubjectRepository
 
     void Delete(Subject subject);
 
+    bool RepeatedMatter(string name);
+
     
 }

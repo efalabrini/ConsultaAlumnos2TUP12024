@@ -26,6 +26,15 @@ public class SubjectService : ISubjectService
 
     public Subject Create(SubjectCreateRequest subjectCreateRequest)
     {
+        var subjectRequest = subjectCreateRequest.Name;
+        var response = _subjectRepository.RepeatedMatter(subjectRequest); //añadí un metodo en ISubjectRepository (RepeatedMatter)
+        
+        if (response)
+        {
+            throw new Exception($"la materia {subjectRequest} ya existe ");
+            
+        }
+
         var obj = new Subject(subjectCreateRequest.Name);
         return _subjectRepository.Add(obj);
     }

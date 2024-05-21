@@ -2,6 +2,8 @@ using ConsultaAlumnos.Application.Interfaces;
 using ConsultaAlumnos.Application.Services;
 using ConsultaAlumnos.Domain.Interfaces;
 using ConsultaAlumnos.Infrastructure.Data;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,13 @@ builder.Services.AddScoped<ISubjectService, SubjectService>();
 
 #region Repositories
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+
+builder.Services.AddDbContext<ApplicationContext>(dbContextOptions => dbContextOptions.UseSqlite(
+builder.Configuration["ConnectionStrings:ConsultaAlumnosDBConennectionString"]));
+
 #endregion
+
+
 
 var app = builder.Build();
 

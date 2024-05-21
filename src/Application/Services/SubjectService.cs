@@ -24,19 +24,16 @@ public class SubjectService : ISubjectService
         return _subjectRepository.GetById(id);
     }
 
-    public string Create(SubjectCreateRequest subjectCreateRequest)
+    public Subject Create(SubjectCreateRequest subjectCreateRequest)
     {
         var obj = new Subject(subjectCreateRequest.Name);
         if (_subjectRepository.AlreadyCreated(obj.Name))
         {
-            return "esa materia ya existe";
+            throw new InvalidOperationException("Esa materia ya existe");
         }else
-        {
-            _subjectRepository.Add(obj);
-            return "agregado correctamente";
+        {            
+            return _subjectRepository.Add(obj);
         }
-        
-        
     }
 
     public void Update(int id, SubjectUpdateRequest subjectUpdateRequest)

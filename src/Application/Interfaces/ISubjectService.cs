@@ -5,7 +5,7 @@ namespace ConsultaAlumnos.Application.Interfaces
 {
     public interface ISubjectService
     {
-        string Create(SubjectCreateRequest subject);
+        Subject Create(SubjectCreateRequest subject);
         void Delete(int id);
         List<Subject> GetAll();
         Subject GetById(int id);

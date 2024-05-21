@@ -13,5 +13,5 @@ public interface ISubjectRepository
 
     void Delete(Subject subject);
 
-    
+    bool AlreadyCreated(string name);
 }

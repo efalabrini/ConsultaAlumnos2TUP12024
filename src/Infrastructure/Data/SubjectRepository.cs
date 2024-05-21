@@ -40,4 +40,16 @@ public class SubjectRepository : ISubjectRepository
         obj.Name = subject.Name;
 
     }
+
+    public bool AlreadyCreated(string name)
+    {
+        var obj = subjects.Find(x => x.Name == name);
+        if (obj != null)
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
 }

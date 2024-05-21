@@ -20,10 +20,16 @@ public class SubjectController : ControllerBase
 
     [HttpPost]
     public IActionResult Create([FromBody] SubjectCreateRequest subjectCreateRequest)
-    {
-        var newObj = _subjectService.Create(subjectCreateRequest);
-
-        return CreatedAtAction(nameof(Get), new { id = newObj.Id }, newObj);
+    {    
+        try
+        {
+            var newObj = _subjectService.Create(subjectCreateRequest);
+            return CreatedAtAction(nameof(Get), new { id = newObj }, newObj);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }       
     }
 
     [HttpPut("{id}")]

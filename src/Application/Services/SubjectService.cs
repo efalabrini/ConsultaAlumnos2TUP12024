@@ -27,7 +27,13 @@ public class SubjectService : ISubjectService
     public Subject Create(SubjectCreateRequest subjectCreateRequest)
     {
         var obj = new Subject(subjectCreateRequest.Name);
-        return _subjectRepository.Add(obj);
+        if (_subjectRepository.AlreadyCreated(obj.Name))
+        {
+            throw new InvalidOperationException("Esa materia ya existe");
+        }else
+        {            
+            return _subjectRepository.Add(obj);
+        }
     }
 
     public void Update(int id, SubjectUpdateRequest subjectUpdateRequest)
@@ -45,5 +51,6 @@ public class SubjectService : ISubjectService
 
         _subjectRepository.Delete(objToDelete);
     }
+
 
 }

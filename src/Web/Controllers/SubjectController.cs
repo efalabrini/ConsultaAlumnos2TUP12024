@@ -1,10 +1,12 @@
 ﻿using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models;
 using ConsultaAlumnos.Application.Models.Requests;
 using ConsultaAlumnos.Domain.Entities;
 using ConsultaAlumnos.Domain.Exceptions;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SQLitePCL;
 
 namespace ConsultaAlumnos.Web.Controllers;
 
@@ -58,13 +60,23 @@ public class SubjectController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<List<Subject>> GetAll()
+    public ActionResult<List<SubjectDto>> GetAll()
     {
         return _subjectService.GetAll();
     }
 
+
+
+    [HttpGet("[action]")]
+    public ActionResult<List<Subject>> GetAllFullData()
+    {
+        return _subjectService.GetAllFullData();
+    }
+
+
+
     [HttpGet("{id}")]
-    public ActionResult<Subject> Get([FromRoute] int id)
+    public ActionResult<SubjectDto> Get([FromRoute] int id)
     {
         try
         {

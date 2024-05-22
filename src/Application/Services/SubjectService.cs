@@ -1,4 +1,5 @@
 using ConsultaAlumnos.Application.Interfaces;
+using ConsultaAlumnos.Application.Models;
 using ConsultaAlumnos.Application.Models.Requests;
 using ConsultaAlumnos.Domain.Entities;
 using ConsultaAlumnos.Domain.Exceptions;
@@ -14,14 +15,26 @@ public class SubjectService : ISubjectService
         _subjectRepository = subjectRepository;
     }
 
-    public List<Subject> GetAll()
+    public List<SubjectDto> GetAll()
+    {
+        var list = _subjectRepository.GetAll();
+
+        return SubjectDto.CreateList(list);
+    }
+
+    public List<Subject> GetAllFullData()
     {
         return _subjectRepository.GetAll();
     }
 
-    public Subject GetById(int id)
+    public SubjectDto GetById(int id)
     {
-        return _subjectRepository.GetById(id);
+        var obj = _subjectRepository.GetById(id)
+            ?? throw new NotFoundException(nameof(Subject),id);
+
+        var dto = SubjectDto.Create(obj);
+
+        return dto;
     }
 
     public Subject Create(SubjectCreateRequest subjectCreateRequest)
@@ -32,11 +45,26 @@ public class SubjectService : ISubjectService
 
     public void Update(int id, SubjectUpdateRequest subjectUpdateRequest)
     {
-        var obj = _subjectRepository.GetById(id);
+        ///Option 1 (Only affected fields are updated)
+        var obj = _subjectRepository.GetById(id); //The context starts to track changes.
 
-        obj.Name = subjectUpdateRequest.Name;
+        if (obj == null)
+            throw new NotFoundException(nameof(Subject), id);
 
-        _subjectRepository.Update(obj);
+        if (subjectUpdateRequest.Name != string.Empty) obj.Name = subjectUpdateRequest.Name;
+
+        if (subjectUpdateRequest.MainTeacheEmail != string.Empty) obj.MainTeacherEmail = subjectUpdateRequest.MainTeacheEmail;
+
+        _subjectRepository.SaveChanges();
+
+
+        ///Option 2 (The entity is updated completely)
+        /*
+        Subject subject = new Subject(subjectUpdateRequest.Name);
+        subject.Id = id;
+        subject.MainTeacherEmail = subjectUpdateRequest.MainTeacheEmail;
+        _subjectRepository.Update(subject); // Context.update starts to track changes of an existing entity.
+        */
     }
 
     public void Delete(int id)

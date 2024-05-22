@@ -1,4 +1,5 @@
-﻿using ConsultaAlumnos.Application.Models.Requests;
+﻿using ConsultaAlumnos.Application.Models;
+using ConsultaAlumnos.Application.Models.Requests;
 using ConsultaAlumnos.Domain.Entities;
 
 namespace ConsultaAlumnos.Application.Interfaces
@@ -7,8 +8,10 @@ namespace ConsultaAlumnos.Application.Interfaces
     {
         Subject Create(SubjectCreateRequest subject);
         void Delete(int id);
-        List<Subject> GetAll();
-        Subject GetById(int id);
+        List<SubjectDto> GetAll();
+
+        List<Subject> GetAllFullData();
+        SubjectDto GetById(int id);
         void Update(int id, SubjectUpdateRequest subject);
     }
 }

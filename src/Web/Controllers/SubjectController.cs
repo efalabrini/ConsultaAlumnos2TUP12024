@@ -26,7 +26,7 @@ public class SubjectController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = newObj.Id }, newObj);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id}")]//Pablo said that this should not work, bc you can only obtain a string from route, and if you want an int, you have to parse it. But here is working...
     public IActionResult Update([FromRoute] int id, [FromBody] SubjectUpdateRequest subjectUpdateRequest)
     { 
 

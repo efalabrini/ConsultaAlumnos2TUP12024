@@ -1,64 +1,60 @@
 using ConsultaAlumnos.Domain.Entities;
 using ConsultaAlumnos.Domain.Exceptions;
 using ConsultaAlumnos.Domain.Interfaces;
+using Infrastructure.Data;
 using System.Security.Cryptography.X509Certificates;
 
 namespace ConsultaAlumnos.Infrastructure.Data;
 
 public class SubjectRepositoryEf : ISubjectRepository
 {
-    private readonly ApplicationContext _applicationContext;
-    public SubjectRepositoryEf(ApplicationContext applicationContext)
+    private readonly ApplicationContext _context;
+    public SubjectRepositoryEf(ApplicationContext context)
     {
-        _applicationContext = applicationContext;
+        _context = context;
     }
 
-    static int LastIdAssigned = 0;
-    static List<Subject> subjects = [];
     public Subject Add(Subject subject)
     {
-        subject.Id = ++LastIdAssigned;
-        subjects.Add(subject);
+        _context.Subjects.Add(subject);
+        _context.SaveChanges();
         return subject;
     }
 
     public void Delete(Subject subject)
     {
-        subjects.Remove(subject);
+        _context.Subjects.Remove(subject);
+        _context.SaveChanges();
     }
 
     public List<Subject> GetAll()
     {
-        return subjects.ToList();
+        return _context.Subjects.ToList();
     }
 
     public Subject GetById(int id)
     {
-        return subjects.FirstOrDefault(x => x.Id == id)
-            ?? throw new NotFoundException(nameof(Subject),id);
+        return _context.Subjects.FirstOrDefault(x => x.Id == id)
+            ?? throw new NotFoundException(nameof(Subject), id);
     }
 
     public void Update(Subject subject)
     {
-        var obj = subjects.FirstOrDefault(x => x.Id == subject.Id)
-            ?? throw new NotFoundException(nameof(Subject), subject.Id);
+        //searchs the Subject in the DB by Id.
+        var existingSubject = _context.Subjects.Find(subject.Id);
 
-        obj.Name = subject.Name;
-
-    }
-
-    public bool AlreadyCreated(string name)
-    {
-        var obj = subjects.Find(x => x.Name == name);
-        if (obj != null)
+        //Validates if it exists.
+        if (existingSubject == null)
         {
-            return true;
-        }else
-        {
-            return false;
+            //if not exists, throws an exception.
+            throw new NotFoundException(nameof(Subject), subject.Id);
         }
-    }
-}
 
+        //if exists, updates it and save the changes in the DB.
+        existingSubject.Name = subject.Name;
+        _context.SaveChanges();
+    }
+
+}
     
 

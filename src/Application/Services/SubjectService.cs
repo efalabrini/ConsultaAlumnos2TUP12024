@@ -45,8 +45,8 @@ public class SubjectService : ISubjectService
 
     public void Update(int id, SubjectUpdateRequest subjectUpdateRequest)
     {
-        ///Option 1 (Only affected fields are updated)
-        var obj = _subjectRepository.GetById(id); //The context starts to track changes.
+
+        var obj = _subjectRepository.GetById(id);
 
         if (obj == null)
             throw new NotFoundException(nameof(Subject), id);
@@ -55,23 +55,18 @@ public class SubjectService : ISubjectService
 
         if (subjectUpdateRequest.MainTeacheEmail != string.Empty) obj.MainTeacherEmail = subjectUpdateRequest.MainTeacheEmail;
 
-        _subjectRepository.SaveChanges();
+        _subjectRepository.Update(obj);
 
-
-        ///Option 2 (The entity is updated completely)
-        /*
-        Subject subject = new Subject(subjectUpdateRequest.Name);
-        subject.Id = id;
-        subject.MainTeacherEmail = subjectUpdateRequest.MainTeacheEmail;
-        _subjectRepository.Update(subject); // Context.update starts to track changes of an existing entity.
-        */
     }
 
     public void Delete(int id)
     {
-        var objToDelete = _subjectRepository.GetById(id);
+        var obj = _subjectRepository.GetById(id);
 
-        _subjectRepository.Delete(objToDelete);
+        if (obj == null)
+            throw new NotFoundException(nameof(Subject), id);
+
+        _subjectRepository.Delete(obj);
     }
 
 }

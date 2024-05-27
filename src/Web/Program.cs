@@ -2,6 +2,8 @@ using ConsultaAlumnos.Application.Interfaces;
 using ConsultaAlumnos.Application.Services;
 using ConsultaAlumnos.Domain.Interfaces;
 using ConsultaAlumnos.Infrastructure.Data;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +19,26 @@ builder.Services.AddScoped<ISubjectService, SubjectService>();
 #endregion
 
 #region Repositories
-builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepositoryEf>();
 #endregion
+
+#region Database
+string connectionString = "Data Source=ConsultaAlumnos.db";
+
+// Configure the SQLite connection
+var connection = new SqliteConnection(connectionString);
+connection.Open();
+
+// Set journal mode to DELETE using PRAGMA statement
+using (var command = connection.CreateCommand())
+{
+    command.CommandText = "PRAGMA journal_mode = DELETE;";
+    command.ExecuteNonQuery();
+}
+
+builder.Services.AddDbContext<ApplicationContext>(dbContextOptions => dbContextOptions.UseSqlite(connection));
+#endregion
+
 
 var app = builder.Build();
 

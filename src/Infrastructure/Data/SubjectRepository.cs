@@ -26,10 +26,14 @@ public class SubjectRepository : ISubjectRepository
         return subjects.ToList();
     }
 
-    public Subject GetById(int id)
+    public Subject? GetById(int id)
     {
-        return subjects.FirstOrDefault(x => x.Id == id)
-            ?? throw new NotFoundException(nameof(Subject),id);
+        return subjects.FirstOrDefault(x => x.Id == id);
+    }
+
+    public void SaveChanges()
+    {
+        throw new NotImplementedException();
     }
 
     public void Update(Subject subject)

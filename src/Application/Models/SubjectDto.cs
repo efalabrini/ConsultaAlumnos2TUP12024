@@ -10,6 +10,7 @@ namespace ConsultaAlumnos.Application.Models;
 
 public class SubjectDto
 {
+
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
 
@@ -20,6 +21,17 @@ public class SubjectDto
         dto.Name = subject.Name;
 
         return dto;
+    }
+
+    public static List<SubjectDto> CreateList(IEnumerable<Subject> subjects)
+    {
+        List<SubjectDto> listDto = [];
+        foreach (var s in subjects)
+        {
+            listDto.Add(Create(s));
+        }
+
+        return listDto;
     }
 
 }

@@ -16,10 +16,12 @@ builder.Services.AddSwaggerGen();
 
 #region Services
 builder.Services.AddScoped<ISubjectService, SubjectService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
 #endregion
 
 #region Repositories
 builder.Services.AddScoped<ISubjectRepository, SubjectRepositoryEf>();
+builder.Services.AddScoped<IStudentRepository, StudentRepositoryEf>();
 #endregion
 
 #region Database

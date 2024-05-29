@@ -67,7 +67,7 @@ public class StudentService : IStudentService
 
         if (studentUpdateRequest.Email != string.Empty) obj.Email = studentUpdateRequest.Email;
 
-        if (studentUpdateRequest.UserName != string.Empty) obj.Name = studentUpdateRequest.UserName;
+        if (studentUpdateRequest.UserName != string.Empty) obj.UserName = studentUpdateRequest.UserName;
 
         _studentRepository.Update(obj);
 

@@ -19,7 +19,7 @@ public class SubjectController : ControllerBase
     {
         _subjectService = subjectService;
     }
-
+    
     [HttpPost]
     public IActionResult Create([FromBody] SubjectCreateRequest subjectCreateRequest)
     {

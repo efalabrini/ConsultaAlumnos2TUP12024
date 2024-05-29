@@ -2,6 +2,8 @@
 using ConsultaAlumnos.Application.Models;
 using ConsultaAlumnos.Application.Models.Requests;
 using ConsultaAlumnos.Domain.Entities;
+using ConsultaAlumnos.Domain.Exceptions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConsultaAlumnos.Web.Controllers
@@ -22,7 +24,7 @@ namespace ConsultaAlumnos.Web.Controllers
             {
                 return _studentService.GetAll();
             }
-            catch (Exception ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex);
             }
@@ -35,7 +37,7 @@ namespace ConsultaAlumnos.Web.Controllers
             {
                 return _studentService.GetAllFullData();
             }
-            catch (Exception ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex);
             }
@@ -48,7 +50,7 @@ namespace ConsultaAlumnos.Web.Controllers
             {
                 return _studentService.GetById(id);
             }
-            catch (Exception ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex);
             }
@@ -61,7 +63,7 @@ namespace ConsultaAlumnos.Web.Controllers
             {
                 return _studentService.Create(student);
             }
-            catch (Exception ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex);
             }
@@ -73,9 +75,9 @@ namespace ConsultaAlumnos.Web.Controllers
             try
             {
                 _studentService.Update(id, student);
-                return Ok("Se actualizo la informacion del usuario!");
+                return NoContent();
             }
-            catch (Exception ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex);
             }
@@ -87,9 +89,9 @@ namespace ConsultaAlumnos.Web.Controllers
             try
             {
                 _studentService.Delete(id);
-                return Ok("Se elimino el usuario correctamente!");
+                return NoContent();
             }
-            catch (Exception ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex);
             }

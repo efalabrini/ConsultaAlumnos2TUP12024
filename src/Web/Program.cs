@@ -41,7 +41,9 @@ using (var command = connection.CreateCommand())
 builder.Services.AddDbContext<ApplicationContext>(dbContextOptions => dbContextOptions.UseSqlite(connection));
 #endregion
 
-
+#region
+builder.Services.AddScoped<IStudentService, StudentService>();
+#endregion
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

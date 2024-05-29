@@ -31,7 +31,6 @@ public class SubjectController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult Update([FromRoute] int id, [FromBody] SubjectUpdateRequest subjectUpdateRequest)
     { 
-
         try
         {
             _subjectService.Update(id, subjectUpdateRequest);
